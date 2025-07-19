@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Janasubha Construction - Services</title>
   <style>
-    /* Same styles */
     body {
       font-family: 'Segoe UI', 'Agency FB', sans-serif;
       margin: 0; padding: 0;
@@ -50,13 +49,47 @@
       text-align: center;
       padding: 20px;
     }
+    .lang-btns {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .lang-btns button {
+      margin: 0 5px;
+      padding: 5px 10px;
+      background: #1a237e;
+      color: #ffeb3b;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
+  <script>
+    function translateToNepali() {
+      document.getElementById('welcome-subtitle').innerText = '#नयाँक्षितिज_खोज्नुहोस्';
+      document.getElementById('services-title').innerText = 'हाम्रा सेवाहरू';
+      document.getElementById('service1').innerText = 'रेइनफोर्स्ड कंक्रीट र स्टील भवन निर्माण';
+      document.getElementById('service2').innerText = 'आर्किटेक्चर, स्ट्रक्चर र MEP डिजाइन';
+      document.getElementById('service3').innerText = 'साइट सुपरिविजन';
+      document.getElementById('service4').innerText = 'डिजाइन र निर्माण सल्लाह';
+      document.getElementById('service5').innerText = 'प्रशिक्षण र कार्यशालाहरू';
+    }
+
+    function translateToEnglish() {
+      document.getElementById('welcome-subtitle').innerText = '#DiscoverNewHorizon';
+      document.getElementById('services-title').innerText = 'Our Services';
+      document.getElementById('service1').innerText = 'Reinforced concrete and steel building construction';
+      document.getElementById('service2').innerText = 'Architecture, structure and MEP design';
+      document.getElementById('service3').innerText = 'Site Supervision';
+      document.getElementById('service4').innerText = 'Design and construction consultation';
+      document.getElementById('service5').innerText = 'Training and workshops';
+    }
+  </script>
 </head>
 <body>
   <header>
     <img src="LOGO.png" alt="Company Logo" />
     <h1>Janasubha Construction</h1>
-    <p>#DiscoverNewHorizon</p>
+    <p id="welcome-subtitle">#DiscoverNewHorizon</p>
   </header>
 
   <nav>
@@ -69,14 +102,19 @@
     <a href="contact.html">Contact Us</a>
   </nav>
 
+  <div class="lang-btns">
+    <button onclick="translateToEnglish()">English</button>
+    <button onclick="translateToNepali()">नेपाली</button>
+  </div>
+
   <section id="services">
-    <h2>Our Services</h2>
+    <h2 id="services-title">Our Services</h2>
     <ul>
-      <li>Reinforced concrete and steel building construction</li>
-      <li>Architecture, structure and MEP design</li>
-      <li>Site Supervision</li>
-      <li>Design and construction consultation</li>
-      <li>Training and workshops</li>
+      <li id="service1">Reinforced concrete and steel building construction</li>
+      <li id="service2">Architecture, structure and MEP design</li>
+      <li id="service3">Site Supervision</li>
+      <li id="service4">Design and construction consultation</li>
+      <li id="service5">Training and workshops</li>
     </ul>
   </section>
 
