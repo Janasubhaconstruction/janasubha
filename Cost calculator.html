@@ -140,6 +140,29 @@
       document.getElementById("label-stories").textContent = t.stories;
       document.querySelector("form button").textContent = t.submit;
     }
+
+    function calculateCost() {
+      const area = parseFloat(document.getElementById("area").value) || 0;
+      const load = parseFloat(document.getElementById("load").value) || 0;
+      const stories = parseFloat(document.getElementById("stories").value) || 0;
+      const cost = area * load * stories * 300;
+      const resultDiv = document.getElementById("result");
+      if (cost > 0) {
+        resultDiv.innerHTML = `
+          <p>Estimated approximate cost of construction is NRs. ${cost.toFixed(2)}</p>
+          <p>Thank you for the response. For detailed calculations, contact: +9779841777725, +9779843647417.</p>
+        `;
+        resultDiv.style.display = "block";
+      } else {
+        resultDiv.style.display = "none";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("area").addEventListener("input", calculateCost);
+      document.getElementById("load").addEventListener("input", calculateCost);
+      document.getElementById("stories").addEventListener("input", calculateCost);
+    });
   </script>
 </head>
 
