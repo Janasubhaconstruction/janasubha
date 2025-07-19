@@ -23,9 +23,6 @@
       vertical-align: middle;
       object-fit: contain;
     }
-    header h1 {
-      margin: 10px 0 5px;
-    }
     nav {
       display: flex;
       justify-content: center;
@@ -40,6 +37,10 @@
     }
     nav a:hover {
       background-color: #002233;
+    }
+    .lang-selector {
+      text-align: right;
+      padding: 10px 20px;
     }
     form {
       margin: 30px auto;
@@ -97,30 +98,51 @@
       font-weight: bold;
     }
   </style>
+
   <script>
-    function calculateCost() {
-      const area = parseFloat(document.getElementById("area").value) || 0;
-      const load = parseFloat(document.getElementById("load").value) || 0;
-      const stories = parseFloat(document.getElementById("stories").value) || 0;
-      const cost = area * load * stories * 300;
-      const resultDiv = document.getElementById("result");
-      if (cost > 0) {
-        resultDiv.innerHTML = `
-          <p>Estimated approximate cost of construction is NRs. ${cost.toFixed(2)}</p>
-          <p>Thank you for the response. For detailed calculations, contact: +9779763683288.</p>
-        `;
-        resultDiv.style.display = "block";
-      } else {
-        resultDiv.style.display = "none";
-      }
+    function changeLanguage(lang) {
+      const translations = {
+        np: {
+          heading: "स्टील भवन लागत गणक फारम",
+          firstName: "तपाईंको पहिलो नाम लेख्नुहोस्",
+          lastName: "तपाईंको थर लेख्नुहोस्",
+          address: "तपाईंको ठेगाना लेख्नुहोस्",
+          email: "मान्य इमेल ठेगाना लेख्नुहोस्",
+          number: "मान्य फोन नम्बर लेख्नुहोस्",
+          area: "प्रत्येक तल्लाको अनुमानित क्षेत्रफल (वर्गफुटमा) लेख्नुहोस्",
+          load: "संरचनाले बोक्ने भार (१ देखि ५ सम्म) लेख्नुहोस्",
+          stories: "तल्ला संख्या लेख्नुहोस्",
+          submit: "पेश गर्नुहोस्"
+        },
+        en: {
+          heading: "Steel building cost calculator form",
+          firstName: "Enter your first name",
+          lastName: "Enter your last name",
+          address: "Enter your address",
+          email: "Enter your valid e-mail address",
+          number: "Enter your valid phone number",
+          area: "Enter the estimated floor area of construction (per floor) in sq.ft.",
+          load: "Enter the load the structure may bear on scale 1 to 5 (1 for very light, 5 for heavy loads)",
+          stories: "Enter the number of stories",
+          submit: "Submit"
+        }
+      };
+
+      const t = translations[lang];
+      document.getElementById("form-title").textContent = t.heading;
+      document.getElementById("label-firstName").textContent = t.firstName;
+      document.getElementById("label-lastName").textContent = t.lastName;
+      document.getElementById("label-address").textContent = t.address;
+      document.getElementById("label-email").textContent = t.email;
+      document.getElementById("label-number").textContent = t.number;
+      document.getElementById("label-area").textContent = t.area;
+      document.getElementById("label-load").textContent = t.load;
+      document.getElementById("label-stories").textContent = t.stories;
+      document.querySelector("form button").textContent = t.submit;
     }
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("area").addEventListener("input", calculateCost);
-      document.getElementById("load").addEventListener("input", calculateCost);
-      document.getElementById("stories").addEventListener("input", calculateCost);
-    });
   </script>
 </head>
+
 <body>
   <header>
     <img src="LOGO.png" alt="Company Logo" />
@@ -138,31 +160,40 @@
     <a href="contact.html">Contact Us</a>
   </nav>
 
+  <div class="lang-selector">
+    <label>Select Language:
+      <select onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="np">नेपाली</option>
+      </select>
+    </label>
+  </div>
+
   <section id="inquiry">
-    <h2>Steel building cost calculator form</h2>
+    <h2 id="form-title">Steel building cost calculator form</h2>
     <form name="userForm" action="https://script.google.com/macros/s/AKfycby-zZUcjIQTMu6OTqXqDirq7CwjDO4MgZWQxUtKWkrWmLSrx2IBnes0Nrn-3WTc7tgB4Q/exec" method="POST">
-      <label for="firstName">Enter your first name</label>
+      <label for="firstName" id="label-firstName">Enter your first name</label>
       <input type="text" id="firstName" name="firstName" required>
 
-      <label for="lastName">Enter your last name</label>
+      <label for="lastName" id="label-lastName">Enter your last name</label>
       <input type="text" id="lastName" name="lastName" required>
 
-      <label for="address">Enter your address</label>
+      <label for="address" id="label-address">Enter your address</label>
       <input type="text" id="address" name="address" required>
 
-      <label for="email">Enter your valid e-mail address</label>
+      <label for="email" id="label-email">Enter your valid e-mail address</label>
       <input type="email" id="email" name="email" required>
 
-      <label for="number">Enter your valid phone number</label>
+      <label for="number" id="label-number">Enter your valid phone number</label>
       <input type="tel" id="number" name="number" required pattern="[0-9]{7,15}">
 
-      <label for="area">Enter the estimated floor area of construction (per floor) in sq.ft.</label>
+      <label for="area" id="label-area">Enter the estimated floor area of construction (per floor) in sq.ft.</label>
       <input type="number" id="area" name="area" required min="0">
 
-      <label for="load">Enter the load the structure may bear on scale 1 to 5 (1 for very light, negligible loads; 5 for very heavy, storage loads).</label>
+      <label for="load" id="label-load">Enter the load the structure may bear on scale 1 to 5 (1 for very light, 5 for heavy loads)</label>
       <input type="number" id="load" name="load" required min="1" max="5">
 
-      <label for="stories">Enter the number of stories</label>
+      <label for="stories" id="label-stories">Enter the number of stories</label>
       <input type="number" id="stories" name="stories" required min="1">
 
       <button type="submit">Submit</button>
