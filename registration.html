@@ -97,9 +97,27 @@
       border: none;
       cursor: pointer;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
     form button:hover {
       background-color: #3949ab;
+    }
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #ffeb3b;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
     }
     .thankyou {
       display: none;
@@ -122,7 +140,6 @@
 
   <script>
     let currentLang = 'en';
-
     const i18n = {
       np: {
         heading: "प्रशिक्षण नाम दर्ता फारम",
@@ -191,8 +208,7 @@
     }
 
     function setError(id, key) {
-      const msg = i18n[currentLang].errors[key] || key;
-      document.getElementById(id).textContent = msg;
+      document.getElementById(id).textContent = i18n[currentLang].errors[key] || key;
     }
     function clearError(id) { document.getElementById(id).textContent = ""; }
     function clearAllErrors() { document.querySelectorAll(".error").forEach(e => e.textContent = ""); }
@@ -201,6 +217,7 @@
       e.preventDefault();
       clearAllErrors();
       const form = document.getElementById("trainingForm");
+      const submitBtn = form.querySelector("button[type='submit']");
       let isValid = true;
 
       const fullname = document.getElementById("fullname");
@@ -222,6 +239,11 @@
       if (!Array.from(trainingRadios).some(r=>r.checked)) { setError("err-training","training"); isValid=false; }
 
       if (isValid) {
+        // Show submitting state with spinner
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span class="spinner"></span>${currentLang==='np'?'पेश हुँदै...':'Submitting...'}`;
+        submitBtn.style.backgroundColor = "#9fa8da";
+
         const formData = new FormData(form);
         try {
           await fetch("https://script.google.com/macros/s/AKfycbwgqfaU78F8Dca4xItedFKUQ-OBzAqNZmx7ZYc7K1k8Rz6bFrHE-v9anjCbqHRy70Vx/exec", {
@@ -233,17 +255,20 @@
           msg.textContent = i18n[currentLang].thankyou;
           msg.style.display = "block";
         } catch (err) {
-          alert("Thank you for your submission. Your data has been recorded You will be contacted soon.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = currentLang==='np'?'पेश गर्नुहोस्':'Submit';
+          submitBtn.style.backgroundColor = "#1a237e";
+          alert("Thank you for your submission. Your data has been recorded. You will be contacted soon.");
         }
       }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
       ["fullname","contact","email","organization","degree","batch","hear"].forEach(id=>{
-        document.getElementById(id).addEventListener("input", ()=>clearError("err-"+id));
+        document.getElementById(id).addEventListener("input",()=>clearError("err-"+id));
       });
       document.querySelectorAll("input[name='training']").forEach(r=>{
-        r.addEventListener("change", ()=>clearError("err-training"));
+        r.addEventListener("change",()=>clearError("err-training"));
       });
     });
   </script>
@@ -265,7 +290,7 @@
     <a href="location.html">Location</a>
     <a href="contact.html">Contact Us</a>
     <a href="social.html">Social Media</a>
-	  <a href="registration.html">Training registration</a>
+    <a href="registration.html">Training registration</a>
   </nav>
 
   <div class="lang-selector">
