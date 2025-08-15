@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Janasubha Construction - Training Enrollment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', 'Agency FB', sans-serif;
+      background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+      color: #1a237e;
+      margin: 0; padding: 0;
+    }
+    header {
+      background-color: #1a237e;
+      color: #ffeb3b;
+      text-align: center;
+      padding: 20px 10px;
+    }
+    header img {
+      height: 60px;
+      vertical-align: middle;
+      object-fit: contain;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #00334d;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      display: block;
+    }
+    nav a:hover {
+      background-color: #002233;
+    }
+    .lang-selector {
+      text-align: right;
+      padding: 10px 20px;
+    }
+    form {
+      margin: 30px auto;
+      width: 90%;
+      max-width: 600px;
+      background-color: #ffffff;
+      padding: 25px 20px;
+      border-radius: 10px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    form input:not([type="radio"]), form select, form button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #1a237e;
+      border-radius: 5px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .radio-group {
+      text-align: left;
+      border: 1px solid #1a237e;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 0;
+    }
+    .radio-option input[type="radio"] {
+      width: auto;
+      margin: 0;
+    }
+    .radio-option label {
+      font-weight: normal;
+    }
+    .error {
+      color: #d32f2f;
+      font-size: 0.92rem;
+      margin: -6px 0 12px 0;
+      min-height: 0.92rem;
+    }
+    form button {
+      background-color: #1a237e;
+      color: #ffeb3b;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    form button:hover {
+      background-color: #3949ab;
+    }
+    .thankyou {
+      display: none;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #1a237e;
+      margin: 20px auto;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      padding: 15px 10px;
+      background-color: #1a237e;
+      color: #ffeb3b;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  </style>
+
+  <script>
+    let currentLang = 'en';
+
+    const i18n = {
+      np: {
+        heading: "प्रशिक्षण नाम दर्ता फारम",
+        fullname: "तपाईंको पूरा नाम लेख्नुहोस्",
+        contact: "तपाईंको फोन नम्बर (१० अंक) लेख्नुहोस्",
+        email: "मान्य इमेल ठेगाना लेख्नुहोस्",
+        org: "तपाईंको संस्था/अर्गनाइजेशन लेख्नुहोस्",
+        degree: "तपाईंको डिग्री लेख्नुहोस्",
+        batch: "तपाईंको ब्याच (केवल अंक) लेख्नुहोस्",
+        training: "तपाईं कुन प्रशिक्षण लिन चाहनुहुन्छ?",
+        t1: "कुल लागत अनुमान (Estimation) प्रशिक्षण",
+        t2: "स्टिल संरचना डिजाइन सम्बन्धी प्रशिक्षण",
+        t3: "दुवै",
+        hear: "हामीबारे कसरी थाहा पाउनुभयो?",
+        submit: "पेश गर्नुहोस्",
+        thankyou: "तपाईंको प्रतिक्रिया पठाइएको छ। धन्यवाद!",
+        errors: {
+          required: "यो फिल्ड अनिवार्य छ।",
+          contact: "कृपया ठीक १० अंकको फोन नम्बर लेख्नुहोस्।",
+          email: "कृपया मान्य इमेल ठेगाना लेख्नुहोस्।",
+          batch: "कृपया ब्याच केवल अंकमा लेख्नुहोस्।",
+          training: "कृपया एउटा प्रशिक्षण छनोट गर्नुहोस्।"
+        }
+      },
+      en: {
+        heading: "Training enrollment form",
+        fullname: "Enter your full name",
+        contact: "Enter your contact number (10 digits)",
+        email: "Enter your valid e-mail address",
+        org: "Enter your organization",
+        degree: "Enter your degree",
+        batch: "Enter your batch (numbers only)",
+        training: "Which training do you want to take?",
+        t1: "Estimation training",
+        t2: "Training on design of steel structures",
+        t3: "Both",
+        hear: "How did you hear from us?",
+        submit: "Submit",
+        thankyou: "Thank you for your response!",
+        errors: {
+          required: "This field is required.",
+          contact: "Please enter exactly 10 digits.",
+          email: "Please enter a valid email address.",
+          batch: "Batch must contain numbers only.",
+          training: "Please select a training option."
+        }
+      }
+    };
+
+    function changeLanguage(lang) {
+      currentLang = lang;
+      const t = i18n[lang];
+      document.getElementById("form-title").textContent = t.heading;
+      document.getElementById("label-fullname").textContent = t.fullname;
+      document.getElementById("label-contact").textContent = t.contact;
+      document.getElementById("label-email").textContent = t.email;
+      document.getElementById("label-org").textContent = t.org;
+      document.getElementById("label-degree").textContent = t.degree;
+      document.getElementById("label-batch").textContent = t.batch;
+      document.getElementById("label-training").textContent = t.training;
+      document.getElementById("label-t1").textContent = t.t1;
+      document.getElementById("label-t2").textContent = t.t2;
+      document.getElementById("label-t3").textContent = t.t3;
+      document.getElementById("label-hear").textContent = t.hear;
+      document.querySelector("#trainingForm button[type='submit']").textContent = t.submit;
+    }
+
+    function setError(id, key) {
+      const msg = i18n[currentLang].errors[key] || key;
+      document.getElementById(id).textContent = msg;
+    }
+    function clearError(id) { document.getElementById(id).textContent = ""; }
+    function clearAllErrors() { document.querySelectorAll(".error").forEach(e => e.textContent = ""); }
+
+    async function validateAndSubmit(e) {
+      e.preventDefault();
+      clearAllErrors();
+      const form = document.getElementById("trainingForm");
+      let isValid = true;
+
+      const fullname = document.getElementById("fullname");
+      const contact = document.getElementById("contact");
+      const email = document.getElementById("email");
+      const organization = document.getElementById("organization");
+      const degree = document.getElementById("degree");
+      const batch = document.getElementById("batch");
+      const hear = document.getElementById("hear");
+      const trainingRadios = document.querySelectorAll("input[name='training']");
+
+      if (!fullname.value.trim()) { setError("err-fullname", "required"); isValid = false; }
+      if (!organization.value.trim()) { setError("err-organization", "required"); isValid = false; }
+      if (!degree.value.trim()) { setError("err-degree", "required"); isValid = false; }
+      if (!hear.value.trim()) { setError("err-hear", "required"); isValid = false; }
+      if (!/^\d{10}$/.test(contact.value.trim())) { setError("err-contact", "contact"); isValid = false; }
+      if (!email.checkValidity()) { setError("err-email", "email"); isValid = false; }
+      if (!/^\d+$/.test(batch.value.trim())) { setError("err-batch", "batch"); isValid = false; }
+      if (!Array.from(trainingRadios).some(r=>r.checked)) { setError("err-training","training"); isValid=false; }
+
+      if (isValid) {
+        const formData = new FormData(form);
+        try {
+          await fetch("https://script.google.com/macros/s/AKfycbwgqfaU78F8Dca4xItedFKUQ-OBzAqNZmx7ZYc7K1k8Rz6bFrHE-v9anjCbqHRy70Vx/exec", {
+            method: "POST",
+            body: formData
+          });
+          form.style.display = "none";
+          const msg = document.getElementById("thankyou");
+          msg.textContent = i18n[currentLang].thankyou;
+          msg.style.display = "block";
+        } catch (err) {
+          alert("Thank you for your submission. Your data has been recorded You will be contacted soon.");
+        }
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      ["fullname","contact","email","organization","degree","batch","hear"].forEach(id=>{
+        document.getElementById(id).addEventListener("input", ()=>clearError("err-"+id));
+      });
+      document.querySelectorAll("input[name='training']").forEach(r=>{
+        r.addEventListener("change", ()=>clearError("err-training"));
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <header>
+    <img src="LOGO.png" alt="Company Logo" />
+    <h1>Janasubha Construction</h1>
+    <p>#DiscoverNewHorizon</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="Cost calculator.html">Cost calculator</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="location.html">Location</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="social.html">Social Media</a>
+	  <a href="registration.html">Training registration</a>
+  </nav>
+
+  <div class="lang-selector">
+    <label>Select Language:
+      <select onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="np">नेपाली</option>
+      </select>
+    </label>
+  </div>
+
+  <section id="inquiry">
+    <h2 id="form-title">Training enrollment form</h2>
+
+    <form id="trainingForm" name="trainingForm" novalidate onsubmit="validateAndSubmit(event)">
+      <label for="fullname" id="label-fullname">Enter your full name</label>
+      <input type="text" id="fullname" name="fullname" required />
+      <div class="error" id="err-fullname"></div>
+
+      <label for="contact" id="label-contact">Enter your contact number (10 digits)</label>
+      <input type="tel" id="contact" name="contact" required minlength="10" maxlength="10" pattern="\d{10}" />
+      <div class="error" id="err-contact"></div>
+
+      <label for="email" id="label-email">Enter your valid e-mail address</label>
+      <input type="email" id="email" name="email" required />
+      <div class="error" id="err-email"></div>
+
+      <label for="organization" id="label-org">Enter your organization</label>
+      <input type="text" id="organization" name="organization" required />
+      <div class="error" id="err-organization"></div>
+
+      <label for="degree" id="label-degree">Enter your degree</label>
+      <input type="text" id="degree" name="degree" required />
+      <div class="error" id="err-degree"></div>
+
+      <label for="batch" id="label-batch">Enter your batch (numbers only)</label>
+      <input type="number" id="batch" name="batch" required step="1" />
+      <div class="error" id="err-batch"></div>
+
+      <label id="label-training">Which training do you want to take?</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="t1" name="training" value="Estimation training" />
+          <label for="t1" id="label-t1">Estimation training</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="t2" name="training" value="Training on design of steel structures" />
+          <label for="t2" id="label-t2">Training on design of steel structures</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="t3" name="training" value="Both" />
+          <label for="t3" id="label-t3">Both</label>
+        </div>
+      </div>
+      <div class="error" id="err-training"></div>
+
+      <label for="hear" id="label-hear">How did you hear from us?</label>
+      <input type="text" id="hear" name="hear" required />
+      <div class="error" id="err-hear"></div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="thankyou" class="thankyou"></div>
+  </section>
+
+  <footer>
+    &copy; 2025 Janasubha Construction. All rights reserved.
+  </footer>
+</body>
+</html>
