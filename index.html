@@ -99,6 +99,100 @@
             opacity: 1;
             transform: translateX(0);
         }
+        
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            /* Adjust hero section for mobile */
+            .hero-heading {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+            
+            /* Improve mobile navigation */
+            .mobile-nav-container {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+            }
+            
+            .mobile-nav-container.open {
+                max-height: 500px;
+            }
+            
+            /* Adjust spacing for mobile */
+            .mobile-section-padding {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+            
+            /* Improve button sizing for touch */
+            .mobile-button {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            /* Adjust grid layouts for mobile */
+            .mobile-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            /* Improve text sizing for mobile */
+            .mobile-text-lg {
+                font-size: 1.125rem;
+            }
+            
+            /* Improve project cards for mobile */
+            .project-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            /* Adjust contact form for mobile */
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            /* Improve footer layout for mobile */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            /* Make hamburger menu visible */
+            .mobile-menu-button {
+                color: white;
+                z-index: 60;
+            }
+            
+            .mobile-menu-button.scrolled {
+                color: #305350;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-heading {
+                font-size: 1.75rem;
+            }
+            
+            .mobile-section-padding {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+            
+            .container-padding {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+        
+        /* Project title background for better visibility */
+        .project-title-bg {
+            background-color: #ea9c26; /* brand-accent yellow */
+            color: #000000; /* black text */
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -109,7 +203,11 @@
             <!-- Logo -->
             <a href="#home" class="text-3xl font-bold font-serif text-white flex items-center" id="logo-text">
                 <img src="logo.png" alt="Janasubha Construction" class="h-12 mr-3">
-                Janasubha Construction
+                <span class="hidden md:inline">Janasubha Construction</span>
+                <div class="md:hidden flex flex-col leading-tight">
+                    <span class="text-base">Janasubha</span>
+                    <span class="text-sm">Construction</span>
+                </div>
             </a>
             
             <!-- Desktop Nav -->
@@ -119,25 +217,29 @@
                 <a href="#projects" class="text-white hover:opacity-75 transition duration-300 nav-link">Projects</a>
                 <a href="training.html" class="text-white hover:opacity-75 transition duration-300 nav-link">Training Registration</a>
                 <a href="calculator.html" class="text-white hover:opacity-75 transition duration-300 nav-link">Cost Calculator</a>
-                <a href="#contact" class="text-white bg-brand-accent px-5 py-2 rounded-full font-medium hover:opacity-90 transition duration-300">Contact Us</a>
+                <a href="#contact" class="text-white bg-brand-accent px-5 py-2 rounded-full font-medium hover:opacity-90 transition duration-300 mobile-button">Contact Us</a>
             </div>
             
             <!-- Mobile Nav Button -->
             <div class="md:hidden">
-                <button id="mobile-nav-button" class="text-white focus:outline-none">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <button id="mobile-nav-button" class="mobile-menu-button focus:outline-none">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
                 </button>
             </div>
         </nav>
         
         <!-- Mobile Nav Menu (hidden by default) -->
-        <div id="mobile-nav" class="hidden md:hidden bg-white shadow-lg mt-3">
-            <a href="#about" class="block px-6 py-4 text-brand-primary font-medium hover:bg-brand-bg-light">About</a>
-            <a href="#services" class="block px-6 py-4 text-brand-primary font-medium hover:bg-brand-bg-light">Services</a>
-            <a href="#projects" class="block px-6 py-4 text-brand-primary font-medium hover:bg-brand-bg-light">Projects</a>
-            <a href="training.html" class="block px-6 py-4 text-brand-primary font-medium hover:bg-brand-bg-light">Training Registration</a>
-            <a href="calculator.html" class="block px-6 py-4 text-brand-primary font-medium hover:bg-brand-bg-light">Cost Calculator</a>
-            <a href="#contact" class="block px-6 py-4 text-brand-primary font-medium hover:bg-brand-bg-light">Contact Us</a>
+        <div id="mobile-nav" class="mobile-nav-container md:hidden bg-white shadow-lg">
+            <div class="px-6 py-4 space-y-2">
+                <a href="#about" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">About</a>
+                <a href="#services" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">Services</a>
+                <a href="#projects" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">Projects</a>
+                <a href="training.html" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">Training Registration</a>
+                <a href="calculator.html" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">Cost Calculator</a>
+                <a href="#contact" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">Contact Us</a>
+            </div>
         </div>
     </header>
 
@@ -150,13 +252,17 @@
             
             <div class="container mx-auto px-6 relative z-10 text-white text-center">
                 <div class="max-w-4xl mx-auto">
-                    <h1 class="text-white text-5xl md:text-7xl font-extrabold mb-6 leading-tight font-serif fade-in">
-                        #DiscoverNewHorizon
+                    <h1 class="text-white md:text-7xl font-extrabold mb-6 leading-tight font-serif fade-in hero-heading">
+                        <span class="hidden md:inline">#DiscoverNewHorizon</span>
+                        <span class="md:hidden">
+                            <span class="block">#Discover</span>
+                            <span class="block">NewHorizon</span>
+                        </span>
                     </h1>
                     <p class="text-xl md:text-2xl font-light mb-10 text-gray-200 max-w-2xl mx-auto text-center fade-in">
                         Design . Construction . Trainings
                     </p>
-                    <a href="#projects" class="bg-brand-accent text-white px-10 py-4 rounded-full text-lg font-semibold hover:opacity-90 shadow-lg transform hover:scale-105 transition duration-300 ease-in-out fade-in">
+                    <a href="#projects" class="bg-brand-accent text-white px-10 py-4 rounded-full text-lg font-semibold hover:opacity-90 shadow-lg transform hover:scale-105 transition duration-300 ease-in-out fade-in mobile-button">
                         Explore Our Work
                     </a>
                 </div>
@@ -281,7 +387,7 @@
                             <img src="QMED.png" alt="QMED Formulation Pvt. Ltd." class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div class="absolute bottom-0 left-0 p-6 w-full">
-                                <h3 class="text-2xl font-bold font-serif text-black">QMED Formulation Pvt. Ltd.</h3>
+                                <h3 class="text-2xl font-bold font-serif project-title-bg">QMED Formulation Pvt. Ltd.</h3>
                             </div>
                         </div>
                         <div class="p-6">
@@ -299,7 +405,7 @@
                             <img src="MARUTI.png" alt="Maruti Pipes Pvt. Ltd." class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div class="absolute bottom-0 left-0 p-6 w-full">
-                                <h3 class="text-2xl font-bold font-serif text-black">Maruti Pipes Pvt. Ltd.</h3>
+                                <h3 class="text-2xl font-bold font-serif project-title-bg">Maruti Pipes Pvt. Ltd.</h3>
                             </div>
                         </div>
                         <div class="p-6">
@@ -317,7 +423,7 @@
                             <img src="HS.png" alt="Hotel Saffron Pvt. Ltd." class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div class="absolute bottom-0 left-0 p-6 w-full">
-                                <h3 class="text-2xl font-bold font-serif text-black">Hotel Saffron Pvt. Ltd.</h3>
+                                <h3 class="text-2xl font-bold font-serif project-title-bg">Hotel Saffron Pvt. Ltd.</h3>
                             </div>
                         </div>
                         <div class="p-6">
@@ -335,7 +441,7 @@
                             <img src="Resunga.png" alt="Resunga Industries Pvt. Ltd." class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div class="absolute bottom-0 left-0 p-6 w-full">
-                                <h3 class="text-2xl font-bold font-serif text-black">Resunga Industries Pvt. Ltd.</h3>
+                                <h3 class="text-2xl font-bold font-serif project-title-bg">Resunga Industries Pvt. Ltd.</h3>
                             </div>
                         </div>
                         <div class="p-6">
@@ -353,7 +459,7 @@
                             <img src="Bardibas.png" alt="Bardibas Hotel" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div class="absolute bottom-0 left-0 p-6 w-full">
-                                <h3 class="text-2xl font-bold font-serif text-black">Bardibas Hotel</h3>
+                                <h3 class="text-2xl font-bold font-serif project-title-bg">Bardibas Hotel</h3>
                             </div>
                         </div>
                         <div class="p-6">
@@ -371,7 +477,7 @@
                             <img src="Residential.png" alt="Residential Projects" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div class="absolute bottom-0 left-0 p-6 w-full">
-                                <h3 class="text-2xl font-bold font-serif text-black">Residential Projects</h3>
+                                <h3 class="text-2xl font-bold font-serif project-title-bg">Residential Projects</h3>
                             </div>
                         </div>
                         <div class="p-6">
@@ -517,7 +623,7 @@
                 <p class="text-gray-300">&copy; <span id="current-year"></span> Janasubha Construction Pvt. Ltd. All Rights Reserved.</p>
                 <div class="flex space-x-5 mt-4 md:mt-0">
                     <!-- Social Links -->
-                    <a href="https://wa.me/9763683288" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition duration-300">
+                    <a href="https://api.whatsapp.com/message/BJWP6MPZRG32O1" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition duration-300">
                         <img src="whatsapp.png" alt="WhatsApp" class="w-6 h-6">
                     </a>
                     <a href="https://www.instagram.com/janasubhaconstruction/#" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition duration-300">
@@ -550,7 +656,7 @@
         const mobileNav = document.getElementById('mobile-nav');
         
         navButton.addEventListener('click', () => {
-            mobileNav.classList.toggle('hidden');
+            mobileNav.classList.toggle('open');
         });
 
         // Header scroll effect
@@ -567,6 +673,7 @@
                 logoText.classList.add('text-brand-primary');
                 mobileNavButton.classList.remove('text-white');
                 mobileNavButton.classList.add('text-brand-primary');
+                mobileNavButton.classList.add('scrolled');
                 navLinks.forEach(link => {
                     link.classList.remove('text-white');
                     link.classList.add('text-brand-primary');
@@ -578,6 +685,7 @@
                 logoText.classList.remove('text-brand-primary');
                 mobileNavButton.classList.add('text-white');
                 mobileNavButton.classList.remove('text-brand-primary');
+                mobileNavButton.classList.remove('scrolled');
                 navLinks.forEach(link => {
                     link.classList.add('text-white');
                     link.classList.remove('text-brand-primary');
@@ -606,7 +714,4 @@
     </script>
 
 </body>
-
 </html>
-
-
