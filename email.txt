@@ -1,0 +1,56 @@
+function doGet() {
+  return HtmlService.createHtmlOutput("<h3>Thank you for your response!</h3>")
+                    .setTitle("Submission Successful");
+}
+
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = e.parameter;
+
+    // Save form data to Google Sheet
+    sheet.appendRow([
+      data.fullname || "",
+      data.contact || "",
+      data.email || "",
+      data.organization || "",
+      data.degree || "",
+      data.batch || "",
+      data["label-training"] || "",
+      data.hear || ""
+    ]);
+
+    // Collect email fields
+    var recipient = (data.email || "").trim();
+    var subject = "Training registration";
+
+    var body = 
+      "Thank you for registration. Your details are as follows:\n\n" +
+      "Full Name: " + (data.fullname || "N/A") + "\n" +
+      "Contact: " + (data.contact || "N/A") + "\n" +
+      "Selected Training: " + (data["label-training"] || "N/A") + "\n\n" +
+      "You will be contacted soon regarding the training details.\n\n" +
+      "Regards,\n" +
+      "Janasubha Construction\n" +
+      "#Discovernewhorizon";
+
+    // Send email if recipient provided
+    if (recipient) {
+      GmailApp.sendEmail(recipient, subject, body, {
+        name: "Janasubha Construction"
+      });
+      Logger.log("✅ Email sent to: " + recipient);
+    } else {
+      Logger.log("⚠️ No email provided in form data.");
+    }
+
+    // Redirect after submission
+    return HtmlService.createHtmlOutput(
+      "<script>window.location.href='YOUR_THANK_YOU_PAGE_URL';</script>"
+    );
+
+  } catch (err) {
+    Logger.log("❌ Error in doPost: " + err);
+    return HtmlService.createHtmlOutput("Error: " + err);
+  }
+}
