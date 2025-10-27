@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maruti Pipes Pvt. Ltd. - Janasubha Construction P. Ltd.</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Google Fonts: Playfair Display (Serif) and Inter (Sans-serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS CSS for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'brand-primary': '#305350', // Dark Green
+                        'brand-secondary': '#a7846a', // Brown
+                        'brand-accent': '#ea9c26',  // Orange
+                        'brand-bg-light': '#f5f5f5', // Light Gray
+                        'brand-text': '#333333',   // Dark Grey for text
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Base styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333333; /* brand-text */
+        }
+        
+        /* Headers styling */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            color: #305350; /* brand-primary */
+        }
+        
+        /* Justify all text */
+        p, .text-justify {
+            text-align: justify;
+        }
+
+        /* Header scroll effect */
+        .header-transparent {
+            background-color: transparent;
+            transition: all 0.3s ease-in-out;
+        }
+        .header-solid {
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            /* Improve mobile navigation */
+            .mobile-nav-container {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+            }
+            
+            .mobile-nav-container.open {
+                max-height: 500px;
+            }
+            
+            /* Adjust spacing for mobile */
+            .mobile-section-padding {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+            
+            /* Improve button sizing for touch */
+            .mobile-button {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            /* Make hamburger menu visible */
+            .mobile-menu-button {
+                color: white;
+                z-index: 60;
+            }
+            
+            .mobile-menu-button.scrolled {
+                color: #305350;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-section-padding {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+            
+            .container-padding {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Header & Navigation -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 py-4 header-solid">
+        <nav class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="text-3xl font-bold font-serif text-brand-primary flex items-center" id="logo-text">
+                <img src="logo.png" alt="Janasubha Construction" class="h-12 mr-3">
+                <span class="hidden md:inline">Janasubha Construction</span>
+                <div class="md:hidden flex flex-col leading-tight">
+                    <span class="text-base">Janasubha</span>
+                    <span class="text-sm">Construction</span>
+                </div>
+            </a>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html#about" class="text-brand-primary hover:opacity-75 transition duration-300 nav-link">About</a>
+                <a href="index.html#services" class="text-brand-primary hover:opacity-75 transition duration-300 nav-link">Services</a>
+                <a href="index.html#projects" class="text-brand-primary hover:opacity-75 transition duration-300 nav-link">Projects</a>
+                <a href="training.html" class="text-brand-primary hover:opacity-75 transition duration-300 nav-link">Training Registration</a>
+                <a href="calculator.html" class="text-brand-primary hover:opacity-75 transition duration-300 nav-link">Cost Calculator</a>
+                <a href="index.html#contact" class="text-white bg-brand-accent px-5 py-2 rounded-full font-medium hover:opacity-90 transition duration-300 mobile-button">Contact Us</a>
+            </div>
+            
+            <!-- Mobile Nav Button -->
+            <div class="md:hidden">
+                <button id="mobile-nav-button" class="mobile-menu-button scrolled focus:outline-none">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- Mobile Nav Menu (hidden by default) -->
+        <div id="mobile-nav" class="mobile-nav-container md:hidden bg-white shadow-lg">
+            <div class="px-6 py-4 space-y-2">
+                <a href="index.html#about" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">About</a>
+                <a href="index.html#services" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">Services</a>
+                <a href="index.html#projects" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">Projects</a>
+                <a href="training.html" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">Training Registration</a>
+                <a href="calculator.html" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">Cost Calculator</a>
+                <a href="index.html#contact" class="block py-3 text-brand-primary font-medium hover:bg-brand-bg-light rounded-lg transition duration-300">Contact Us</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        
+        <!-- Project Detail Section -->
+        <section class="py-16 md:py-24 bg-brand-bg-light">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="mb-8">
+                        <a href="projects.html" class="text-brand-primary hover:underline font-medium flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            Back to All Projects
+                        </a>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg overflow-hidden shadow-2xl">
+                        <div class="relative">
+                            <img src="MARUTI.png" alt="Maruti Pipes Pvt. Ltd." class="w-full h-96 object-cover">
+                            <div class="absolute bottom-0 left-0 p-6 w-full bg-gradient-to-t from-black/70 to-transparent">
+                                <h1 class="text-3xl md:text-4xl font-bold font-serif text-white">Maruti Pipes Pvt. Ltd.</h1>
+                                <p class="text-gray-200 mt-2">Completed: 2025</p>
+                            </div>
+                        </div>
+                        
+                        <div class="p-8 md:p-12">
+                            <div class="prose max-w-none">
+                                <h2 class="text-2xl font-bold mb-4">Project Overview</h2>
+                                <p class="text-lg text-brand-text leading-relaxed mb-6">
+                                    Structural assessment of two existing truss structures located at the Maruti Pipe Factory in Nepalgunj, Banke district. The main objective is to analyze the existing load-bearing capacity of these trusses and determine the capacity to carry additional loads from proposed rooftop solar panel installations.
+                                </p>
+                                <p class="text-lg text-brand-text leading-relaxed mb-6">
+                                    The analysis considers safety and long-term structural behavior, such as the performance of the whole truss system under existing section load, routine maintenance load, wind and seismic loading based on relevant codes.
+                                </p>
+                                <p class="text-lg text-brand-text leading-relaxed mb-6">
+                                    The strengthening measures included the installation of additional steel bracing, reinforcement of critical structural elements, where necessary. The work demonstrates our commitment to practical and efficient solutions.
+                                </p>
+                                
+                                <h2 class="text-2xl font-bold mb-4 mt-8">Key Features</h2>
+                                <ul class="list-disc pl-6 text-lg text-brand-text mb-6 space-y-2">
+                                    <li>Comprehensive structural assessment and analysis</li>
+                                    <li>Customized strengthening solutions for additional loads</li>
+                                    <li>Minimal disruption to client operations during implementation</li>
+                                    <li>Adherence to relevant codes</li>
+                                    <li>Detailed documentation and reporting of the project</li>
+                                </ul>
+                                
+                                <h2 class="text-2xl font-bold mb-4 mt-8">Project Details</h2>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                    <div>
+                                        <h3 class="text-xl font-semibold mb-2">Client</h3>
+                                        <p class="text-brand-text">Maruti Pipes Pvt. Ltd.</p>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-semibold mb-2">Location</h3>
+                                        <p class="text-brand-text">Nepalgunj, Banke</p>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-semibold mb-2">Completion Date</h3>
+                                        <p class="text-brand-text">2025</p>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-semibold mb-2">Project Type</h3>
+                                        <p class="text-brand-text">Structural Assessment & Strengthening</p>
+                                    </div>
+                                </div>
+                                
+                                <h2 class="text-2xl font-bold mb-4 mt-8">Our Approach</h2>
+                                <p class="text-lg text-brand-text leading-relaxed mb-6">
+                                    Our approach to this project focused on delivering a solution that balanced structural requirements with operational efficiency. We worked closely with the client to understand their specific needs and developed a phased implementation plan that allowed for continuous operation throughout the strengthening process.
+                                </p>
+                                <p class="text-lg text-brand-text leading-relaxed">
+                                    The successful completion of this project demonstrates our capability to handle complex structural challenges and deliver solutions that meet both technical requirements and client expectations.
+                                </p>
+                            </div>
+                            
+                            <div class="mt-12 pt-8 border-t border-gray-200">
+                                <a href="index.html#contact" class="bg-brand-primary text-white px-8 py-3 rounded-lg text-lg font-semibold hover:opacity-90 shadow-lg transform hover:scale-105 transition duration-300 ease-in-out mobile-button inline-block">
+                                    Start Your Project With Us
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-primary text-gray-100">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <!-- Footer Column 1: Brand -->
+                <div>
+                    <a href="index.html" class="text-2xl font-bold font-serif text-white flex items-center">
+                        <img src="logo.png" alt="Janasubha Construction" class="h-10 mr-3">
+                        Janasubha Construction
+                    </a>
+                    <p class="mt-4 text-gray-300 text-justify">Turning your dreams to reality. Come, #DiscoverNewHorizon with us.</p>
+                </div>
+                
+                <!-- Footer Column 2: Links -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#about" class="hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition duration-300">Services</a></li>
+                        <li><a href="index.html#projects" class="hover:text-white transition duration-300">Projects</a></li>
+                        <li><a href="training.html" class="hover:text-white transition duration-300">Training Registration</a></li>
+                        <li><a href="calculator.html" class="hover:text-white transition duration-300">Cost Calculator</a></li>
+                        <li><a href="index.html#contact" class="hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Footer Column 3: Services -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Our Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#services" class="hover:text-white transition duration-300">Building Construction</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition duration-300">Design Services</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition duration-300">Site Supervision</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition duration-300">Consultation</a></li>
+						<li><a href="index.html#services" class="hover:text-white transition duration-300">Training</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Footer Column 4: Contact -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Get in Touch</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="mt-1 mr-2 flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></span>
+                            <a href="https://maps.app.goo.gl/CYLKa1cHa6hmh6PM9" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">
+                                Chandragiri Municipality-08, Dhaksi, Kathmandu, Nepal
+                            </a>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="mr-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg></span>
+                            <a href="tel:+9779763683288" class="hover:text-white transition">+977-9763683288</a>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="mr-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></span>
+                            <a href="mailto:janasubhaconstruction@gmail.com" class="hover:text-white transition">janasubhaconstruction@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-t border-gray-700 my-10">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <p class="text-gray-300">&copy; <span id="current-year"></span> Janasubha Construction Pvt. Ltd. All Rights Reserved.</p>
+                <div class="flex space-x-5 mt-4 md:mt-0">
+                    <!-- Social Links -->
+                    <a href="https://api.whatsapp.com/message/BJWP6MPZRG32O1" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition duration-300">
+                        <img src="whatsapp.png" alt="WhatsApp" class="w-6 h-6">
+                    </a>
+                    <a href="https://www.instagram.com/janasubhaconstruction/#" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition duration-300">
+                        <img src="instagram.png" alt="Instagram" class="w-6 h-6">
+                    </a>
+                    <a href="https://www.tiktok.com/@janasubha_123" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition duration-300">
+                        <img src="tiktok.png" alt="TikTok" class="w-6 h-6">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS JS for scroll animations -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Mobile nav toggle
+        const navButton = document.getElementById('mobile-nav-button');
+        const mobileNav = document.getElementById('mobile-nav');
+        
+        navButton.addEventListener('click', () => {
+            mobileNav.classList.toggle('open');
+        });
+    </script>
+
+</body>
+</html>
