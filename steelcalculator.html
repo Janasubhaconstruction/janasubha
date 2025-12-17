@@ -66,6 +66,136 @@
             transition: all 0.3s ease-in-out;
         }
         
+        /* Language Selection Modal - Improved for mobile */
+        .language-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(48, 83, 80, 0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.5s ease-in-out;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .language-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.5s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        /* Mobile optimization */
+        @media (max-width: 640px) {
+            .language-content {
+                padding: 1.5rem;
+                max-height: 85vh;
+                margin: auto;
+            }
+            
+            .language-modal {
+                padding: 0.5rem;
+                align-items: flex-start;
+                padding-top: 2rem;
+            }
+        }
+        
+        .language-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+        
+        @media (min-width: 640px) {
+            .language-buttons {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+        }
+        
+        .language-btn {
+            padding: 1.25rem 1.5rem;
+            border: 2px solid #305350;
+            border-radius: 0.75rem;
+            background: white;
+            color: #305350;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-height: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        @media (max-width: 640px) {
+            .language-btn {
+                padding: 1rem;
+                min-height: 60px;
+                font-size: 1rem;
+            }
+        }
+        
+        .language-btn:hover {
+            background: #305350;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(48, 83, 80, 0.2);
+        }
+        
+        .language-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .language-btn-primary {
+            background: #305350;
+            color: white;
+        }
+        
+        .language-btn-primary:hover {
+            background: #1a3a38;
+        }
+        
+        .language-btn-text {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .language-btn-subtext {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         /* Calculator Form Styles */
         .calculator-form-container {
             max-width: 800px;
@@ -167,8 +297,62 @@
 </head>
 <body class="bg-white">
 
+    <!-- Language Selection Modal - Improved Design -->
+    <div id="languageModal" class="language-modal">
+        <div class="language-content">
+            <!-- Logo -->
+            <div class="mb-6 flex justify-center">
+                <div class="flex items-center">
+                    <img src="logo.png" alt="Janasubha Construction" class="h-12 mr-3">
+                    <span class="text-2xl font-bold font-serif text-brand-primary">Janasubha Construction</span>
+                </div>
+            </div>
+            
+            <!-- Welcome Messages - Better spacing for mobile -->
+            <div class="mb-6 space-y-4">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-bold text-brand-primary mb-2">स्टिल संरचना लागत क्याल्कुलेटरमा स्वागत छ</h2>
+                    <p class="text-sm md:text-base text-gray-600">तपाईंले यस फारम प्रयोग गरी निर्माण गर्न लाग्नुभएको स्टिल संरचनाको लागत अनुमान सहज रूपमा प्राप्त गर्न सक्नुहुनेछ।</p>
+                </div>
+                
+                <div class="pt-2 border-t border-gray-200">
+                    <h2 class="text-xl md:text-2xl font-bold text-brand-primary mb-2">Welcome to Steel Structure Cost Calculator</h2>
+                    <p class="text-sm md:text-base text-gray-600">By using this form, you will be able to easily obtain a cost estimate for the steel structure you are planning to construct.</p>
+                </div>
+            </div>
+            
+            <!-- Language Selection Prompt -->
+            <div class="mb-6">
+                <p class="text-lg font-semibold text-brand-primary mb-2">कृपया भाषा चयन गर्नुहोस्</p>
+                <p class="text-lg font-semibold text-brand-primary">Please select your preferred language</p>
+            </div>
+            
+            <!-- Language Buttons - Better for mobile -->
+            <div class="language-buttons">
+                <button id="nepaliBtn" class="language-btn language-btn-primary">
+                    <span class="language-btn-text">नेपाली</span>
+                    <span class="language-btn-subtext">Nepali</span>
+                </button>
+                <button id="englishBtn" class="language-btn">
+                    <span class="language-btn-text">English</span>
+                    <span class="language-btn-subtext">अंग्रेजी</span>
+                </button>
+            </div>
+            
+            <!-- Instruction Note -->
+            <div class="mt-6 pt-4 border-t border-gray-200">
+                <p class="text-sm text-gray-500">
+                    <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Select language to continue | भाषा चयन गरी अगाडि बढ्नुहोस्
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- Header & Navigation -->
-    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 py-4 header-solid">
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 py-4 header-solid" style="display: none;">
         <nav class="container mx-auto px-6 flex justify-between items-center">
             <!-- Logo -->
             <a href="index.html" class="text-3xl font-bold font-serif text-brand-primary flex items-center" id="logo-text">
@@ -207,23 +391,23 @@
         </div>
     </header>
 
-    <main class="pt-24">
+    <main class="pt-24" style="display: none;">
         <!-- Calculator Section -->
         <section class="py-16 md:py-24 bg-brand-bg-light">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <span class="text-brand-primary font-semibold tracking-widest uppercase">Calculator</span>
+                    <span class="text-brand-primary font-semibold tracking-widest uppercase" id="form-subtitle">Calculator</span>
                     <h1 class="text-4xl md:text-5xl font-bold mt-4" id="form-title">Steel Building Cost Calculator</h1>
                 </div>
                 
                 <div class="calculator-form-container">
                     <!-- Success Message -->
                     <div id="success-message" class="success-message">
-                        <h3 class="text-2xl font-bold mb-4">Thank You!</h3>
-                        <p>Thank you for your response. Your input is recorded.</p>
-                        <p>You will be contacted soon.</p>
-                        <p class="mt-4">For queries, contact: <strong>+977-9763683288</strong></p>
-                        <p class="mt-6 text-sm">Redirecting to homepage in <span id="countdown">5</span> seconds...</p>
+                        <h3 class="text-2xl font-bold mb-4" id="success-title">Thank You!</h3>
+                        <p id="success-message-1">Thank you for your response. Your input is recorded.</p>
+                        <p id="success-message-2">You will be contacted soon.</p>
+                        <p class="mt-4" id="success-contact">For queries, contact: <strong>+977-9763683288</strong></p>
+                        <p class="mt-6 text-sm" id="success-redirect">Redirecting to homepage in <span id="countdown">5</span> seconds...</p>
                     </div>
                     
                     <!-- Calculator Form -->
@@ -278,7 +462,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-brand-primary text-gray-100">
+    <footer class="bg-brand-primary text-gray-100" style="display: none;">
         <div class="container mx-auto px-6 py-16">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
                 <!-- Footer Column 1: Brand -->
@@ -365,6 +549,71 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
+        // Language data - ONLY FORM CONTENT
+        const translations = {
+            en: {
+                // Form Section
+                formSubtitle: "Calculator",
+                formTitle: "Steel Building Cost Calculator",
+                
+                // Form Labels
+                labelFirstName: "Enter your first name",
+                labelLastName: "Enter your last name",
+                labelAddress: "Enter your address",
+                labelEmail: "Enter your valid e-mail address",
+                labelNumber: "Enter your valid phone number",
+                labelArea: "Enter the estimated floor area of construction (per floor) in sq.ft.",
+                labelLoad: "Enter the load the structure may bear on scale 1 to 5 (1 for very light, 5 for heavy loads)",
+                labelStories: "Enter the number of stories",
+                submitBtn: "Submit",
+                submittingBtn: "Submitting...",
+                
+                // Result
+                resultTitle: "Estimated Cost",
+                resultText1: "Estimated approximate cost of construction is NRs. ",
+                resultText2: "Thank you for the response. For detailed calculations, contact: +977-9763683288.",
+                
+                // Success Message
+                successTitle: "Thank You!",
+                successMessage1: "Thank you for your response. Your input is recorded.",
+                successMessage2: "You will be contacted soon.",
+                successContact: "For queries, contact: ",
+                successRedirect: "Redirecting to homepage in "
+            },
+            ne: {
+                // Form Section
+                formSubtitle: "क्याल्कुलेटर",
+                formTitle: "स्टिल भवन निर्माण लागत क्याल्कुलेटर",
+                
+                // Form Labels
+                labelFirstName: "पहिलो नाम लेखनुहोस्",
+                labelLastName: "थर लेखनुहोस्",
+                labelAddress: "ठेगाना लेखनुहोस्",
+                labelEmail: "मान्य इ-मेल ठेगाना लेखनुहोस्",
+                labelNumber: "मान्य फोन नम्बर लेखनुहोस्",
+                labelArea: "निर्माणको अनुमानित तल्लाको क्षेत्रफल वर्ग फिटमा लेखनुहोस्",
+                labelLoad: "संरचनाले १ देखि ५ को स्केलमा सहन पर्ने भार लेखनुहोस्(१ धेरै हल्का, ५ भारी भारको लागि)",
+                labelStories: "तल्लाको संख्या लेखनुहोस्",
+                submitBtn: "पेश गर्नुहोस्",
+                submittingBtn: "पेश गर्दै...",
+                
+                // Result
+                resultTitle: "अनुमानित लागत",
+                resultText1: "निर्माणको अनुमानित लागत रु. ",
+                resultText2: "प्रतिक्रियाको लागि धन्यवाद। विस्तृत गणनाको लागि सम्पर्क गर्नुहोस्: +९७७-९७६३६८३२८८।",
+                
+                // Success Message
+                successTitle: "धन्यवाद!",
+                successMessage1: "तपाईंको प्रतिक्रियाको लागि धन्यवाद। तपाईंको इनपुट रेकर्ड गरियो।",
+                successMessage2: "तपाईंसँग चाँडै सम्पर्क गरिनेछ।",
+                successContact: "प्रश्नहरूको लागि सम्पर्क गर्नुहोस्: ",
+                successRedirect: "गृहपृष्ठमा पुनर्निर्देशन हुँदै "
+            }
+        };
+
+        // Current language
+        let currentLanguage = 'en';
+
         // Initialize AOS
         AOS.init({
             duration: 800,
@@ -379,9 +628,68 @@
         const navButton = document.getElementById('mobile-nav-button');
         const mobileNav = document.getElementById('mobile-nav');
         
-        navButton.addEventListener('click', () => {
-            mobileNav.classList.toggle('hidden');
+        if (navButton && mobileNav) {
+            navButton.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+            });
+        }
+
+        // Language selection
+        document.getElementById('englishBtn').addEventListener('click', () => {
+            selectLanguage('en');
         });
+
+        document.getElementById('nepaliBtn').addEventListener('click', () => {
+            selectLanguage('ne');
+        });
+
+        function selectLanguage(lang) {
+            currentLanguage = lang;
+            updateLanguage();
+            hideLanguageModal();
+            showMainContent();
+        }
+
+        function updateLanguage() {
+            const t = translations[currentLanguage];
+            
+            // Update form section
+            document.getElementById('form-subtitle').textContent = t.formSubtitle;
+            document.getElementById('form-title').textContent = t.formTitle;
+            
+            // Update form labels
+            document.getElementById('label-firstName').textContent = t.labelFirstName;
+            document.getElementById('label-lastName').textContent = t.labelLastName;
+            document.getElementById('label-address').textContent = t.labelAddress;
+            document.getElementById('label-email').textContent = t.labelEmail;
+            document.getElementById('label-number').textContent = t.labelNumber;
+            document.getElementById('label-area').textContent = t.labelArea;
+            document.getElementById('label-load').textContent = t.labelLoad;
+            document.getElementById('label-stories').textContent = t.labelStories;
+            document.getElementById('submit-btn').textContent = t.submitBtn;
+            
+            // Update success message
+            document.getElementById('success-title').textContent = t.successTitle;
+            document.getElementById('success-message-1').textContent = t.successMessage1;
+            document.getElementById('success-message-2').textContent = t.successMessage2;
+            document.getElementById('success-contact').innerHTML = t.successContact + '<strong>+977-9763683288</strong>';
+            document.getElementById('success-redirect').textContent = t.successRedirect;
+        }
+
+        function hideLanguageModal() {
+            const modal = document.getElementById('languageModal');
+            modal.style.opacity = '0';
+            modal.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 500);
+        }
+
+        function showMainContent() {
+            document.getElementById('main-header').style.display = 'block';
+            document.querySelector('main').style.display = 'block';
+            document.querySelector('footer').style.display = 'block';
+        }
 
         // Calculator Script
         function calculateCost() {
@@ -390,10 +698,13 @@
             const stories = parseFloat(document.getElementById("stories").value) || 0;
             const cost = area * load * stories * 300;
             const resultDiv = document.getElementById("result");
+            
             if (cost > 0) {
+                const t = translations[currentLanguage];
                 resultDiv.innerHTML = `
-                    <p>Estimated approximate cost of construction is NRs. ${cost.toLocaleString('en-IN')}</p>
-                    <p>Thank you for the response. For detailed calculations, contact: +977-9763683288.</p>
+                    <p><strong>${t.resultTitle}</strong></p>
+                    <p>${t.resultText1} ${cost.toLocaleString('en-IN')}</p>
+                    <p>${t.resultText2}</p>
                 `;
                 resultDiv.style.display = "block";
             } else {
@@ -409,10 +720,9 @@
             const submitBtn = document.getElementById("submit-btn");
             const successMessage = document.getElementById("success-message");
             
-            // Show submitting state - KEEP original color #305350
+            // Show submitting state
             submitBtn.disabled = true;
-            submitBtn.innerHTML = `<span class="spinner"></span>Submitting...`;
-            // Keep the original background color #305350
+            submitBtn.innerHTML = `<span class="spinner"></span>${translations[currentLanguage].submittingBtn}`;
 
             try {
                 const formData = new FormData(form);
@@ -423,19 +733,18 @@
                     urlEncodedData.append(key, value);
                 }
                 
-                // Submit to Google Sheets - using a more robust approach
+                // Submit to Google Sheets
                 const response = await fetch("https://script.google.com/macros/s/AKfycbwplklZFef_bRDcYzk70W7nHqTdE9BdojXD8X4Bfiaxh1Qy3ICwgSD-Zg4C0Rdh77sF/exec", {
                     method: "POST",
                     body: urlEncodedData,
-                    mode: 'no-cors' // This bypasses CORS issues
+                    mode: 'no-cors'
                 });
                 
-                // Always show success (since we can't reliably catch errors with no-cors)
+                // Show success message immediately
                 showSuccessMessage();
                 
             } catch (error) {
-                // Even if there's an error, show success to user
-                // This ensures the user experience isn't broken by CORS issues
+                // Show success message even if there's an error
                 showSuccessMessage();
                 console.log("Form submitted (may have CORS limitations)");
             }
@@ -446,38 +755,54 @@
             const submitBtn = document.getElementById("submit-btn");
             const successMessage = document.getElementById("success-message");
             
-            // Hide form and show success message - COMPLETELY HIDE THE FORM
+            // Hide form and show success message
             form.style.display = "none";
             document.getElementById("result").style.display = "none";
             successMessage.style.display = "block";
             
-            // Reset button state (though form is hidden)
+            // Reset button state
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit';
+            submitBtn.textContent = translations[currentLanguage].submitBtn;
             
-            // Start countdown for redirect
+            // Start countdown for redirect - FIXED
             let countdown = 5;
             const countdownElement = document.getElementById("countdown");
             
-            const countdownInterval = setInterval(() => {
+            // Clear any existing interval first
+            if (window.redirectInterval) {
+                clearInterval(window.redirectInterval);
+            }
+            
+            window.redirectInterval = setInterval(() => {
                 countdown--;
-                countdownElement.textContent = countdown;
+                if (countdownElement) {
+                    countdownElement.textContent = countdown;
+                }
                 
                 if (countdown <= 0) {
-                    clearInterval(countdownInterval);
+                    clearInterval(window.redirectInterval);
                     window.location.href = "index.html";
                 }
             }, 1000);
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            // Show language modal on page load
+            const languageModal = document.getElementById('languageModal');
+            if (languageModal) {
+                languageModal.style.display = 'flex';
+            }
+            
             // Real-time cost calculation
             document.getElementById("area").addEventListener("input", calculateCost);
             document.getElementById("load").addEventListener("input", calculateCost);
             document.getElementById("stories").addEventListener("input", calculateCost);
             
             // Form submission
-            document.getElementById("calculatorForm").addEventListener("submit", handleFormSubmit);
+            const calculatorForm = document.getElementById("calculatorForm");
+            if (calculatorForm) {
+                calculatorForm.addEventListener("submit", handleFormSubmit);
+            }
         });
     </script>
 
